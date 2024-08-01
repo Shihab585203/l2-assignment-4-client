@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nunito {
+  font-family: "Nunito", sans-serif;
+}
+
+.pacifico {
+  font-family: "Pacifico", cursive;
+}

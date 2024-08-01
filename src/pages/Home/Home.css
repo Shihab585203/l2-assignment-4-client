@@ -1,0 +1,14 @@
+.carousel-item:target .quote-overlay {
+    opacity: 1;
+  }
+
+  .quote-overlay {
+    transition: opacity 1s ease-in-out;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+  }
+  
+  .carousel-item:hover .quote-overlay {
+    opacity: 1;
+  }
+  
