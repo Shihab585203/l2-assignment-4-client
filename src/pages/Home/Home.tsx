@@ -1,4 +1,5 @@
 import ProductsCard from "../Products.jsx/ProductsCard";
+import ProductsCardContainer from "../Products.jsx/ProductsCardContainer";
 import Carousel from "./Carousel";
 import "./Home.css";
 
@@ -12,7 +13,7 @@ const Home = () => {
         <h1 className="text-2xl text-center font-semibold">
           Featured Products
         </h1>
-        <ProductsCard/>
+        <ProductsCardContainer/>
       </div>
     </>
   );

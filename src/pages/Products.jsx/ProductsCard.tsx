@@ -1,110 +1,64 @@
-const ProductsCard = () => {
+type TProductProps = {
+  _id: string;
+  title: string;
+  category: string;
+  stockQuantity: number;
+  brand: string;
+  rating: number;
+  description: string;
+  price: number;
+  image: string;
+};
+
+const ProductsCard = ({
+  _id,
+  title,
+  category,
+  stockQuantity,
+  brand,
+  rating,
+  description,
+  price,
+  image,
+}: TProductProps) => {
   return (
-    <div className="grid grid-cols-3 gap-8 my-10">
-      <div className="card bg-base-100 w-[22rem] shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <div className="flex justify-between">
-            <p className="">
-              <span className="font-semibold">Category: </span>
-            </p>
-            <p className="">
-              <span className="font-semibold">Stock: </span>
-            </p>
-          </div>
-          <div className="flex justify-between">
-            <p className="">
-              <span className="font-semibold">Brand: </span>
-            </p>
-            <p className="">
-              <span className="font-semibold">Rating: </span>
-            </p>
-          </div>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
+    <div className="card bg-base-100 w-[22rem] shadow-xl">
+      <figure>
+        <img src={image} />
+      </figure>
+      <div className="card-body nunito space-y-2">
+        <h2 className="card-title">{title}</h2>
+        <div className="flex justify-between">
+          <p className="">
+            <span className="font-bold">Price: </span>{" "}
+            <span className="font-semibold">{price}</span>
+          </p>
+          <p className="">
+            <span className="font-bold">Category: </span>{" "}
+            <span className="font-semibold">{category}</span>
+          </p>
         </div>
-      </div>
-      <div className="card bg-base-100 w-[22rem] shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
+        <div className="flex justify-between">
+          <p className="">
+            <span className="font-bold">Quantity: </span>{" "}
+            <span className="font-semibold"> {stockQuantity}</span>
+          </p>
+          <p className="">
+            <span className="font-bold">Brand: </span>
+            <span className="font-semibold"> {brand}</span>
+          </p>
         </div>
-      </div>
-      <div className="card bg-base-100 w-[22rem] shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
+        <div className="flex justify-between">
+          <p className="">
+            <span className="font-bold">Rating: </span>{" "}
+            <span className="font-semibold"> {rating}</span>
+          </p>
         </div>
-      </div>
-      <div className="card bg-base-100 w-[22rem] shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
-        </div>
-      </div>
-      <div className="card bg-base-100 w-[22rem] shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
-        </div>
-      </div>
-      <div className="card bg-base-100 w-[22rem] shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
+        <p>{description.slice(0, 85)}...</p>
+        <div className="card-actions justify-end">
+          <button onClick={`/products/${_id}`} className="btn btn-primary">
+            Buy Now
+          </button>
         </div>
       </div>
     </div>
