@@ -3,7 +3,7 @@ import ProductsCard from "./ProductsCard";
 
 const ProductsCardContainer = () => {
   //From Server by RTK Query
-  const { data, error, isLoading } = useGetProductsQuery(undefined);
+  const { data, isLoading } = useGetProductsQuery(undefined);
 
   if (isLoading) {
     return <p>Loading...</p>;

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type TProductProps = {
   _id: string;
   title: string;
@@ -56,9 +58,9 @@ const ProductsCard = ({
         </div>
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">
-          <button onClick={`/products/${_id}`} className="btn btn-primary">
-            Buy Now
-          </button>
+          <Link to={`/products/${_id}`}>
+            <button className="btn btn-primary">Buy Now</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,15 +1,52 @@
+import { useParams } from "react-router-dom";
+import { useGetProductByIdQuery } from "../../redux/api/baseApi";
+
 const ProductsCardDetails = () => {
+  const { id } = useParams();
+
+  const { data: product, isLoading, error } = useGetProductByIdQuery(id);
+
+  // const { title, price, stockQuantity, image, rating, description, category, brand } = product.data;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+
   return (
-    <div className="card card-side bg-base-100 shadow-xl">
-      <figure>
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-          alt="Movie"
-        />
+    <div className="w-11/12 mx-auto card card-side bg-base-100 my-20 shadow-xl">
+      <figure className="w-4/12">
+        <img src={product.data.image} />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">New movie is released!</h2>
-        <p>Click the button to watch on Jetflix app.</p>
+      <div className="card-body w-8/12 nunito space-y-3">
+        <h2 className="card-title">{product.data.title}</h2>
+
+        <div className="flex justify-between">
+          <p className="">
+            <span className="font-bold">Price: </span>{" "}
+            <span className="font-semibold">{product.data.price}</span>
+          </p>
+          <p className="">
+            <span className="font-bold">Category: </span>{" "}
+            <span className="font-semibold">{product.data.category}</span>
+          </p>
+        </div>
+        <div className="flex justify-between">
+          <p className="">
+            <span className="font-bold">Quantity: </span>{" "}
+            <span className="font-semibold"> {product.data.stockQuantity}</span>
+          </p>
+          <p className="">
+            <span className="font-bold">Brand: </span>
+            <span className="font-semibold"> {product.data.brand}</span>
+          </p>
+        </div>
+        <div className="flex justify-between">
+          <p className="">
+            <span className="font-bold">Rating: </span>{" "}
+            <span className="font-semibold"> {product.data.rating}</span>
+          </p>
+        </div>
+        <p>{product.data.description}</p>
         <div className="card-actions justify-end">
           <button className="btn btn-primary">Watch</button>
         </div>
