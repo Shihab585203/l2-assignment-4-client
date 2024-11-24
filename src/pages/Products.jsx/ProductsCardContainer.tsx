@@ -13,8 +13,8 @@ const ProductsCardContainer = () => {
   // const currentPage = useSelector((state: RootState) => state.pagination.currentPage);
   // const totalPages = useSelector((state: RootState) => state.pagination.totalPages);
 
-  const { data, isLoading } = useGetProductsQuery( {searchTerm} );
-  
+  const { data, isLoading } = useGetProductsQuery( searchTerm );
+
 //  useEffect(() => {
 //     if (data?.totalCount) {
 //       const pages = Math.ceil(data.totalCount / 10);

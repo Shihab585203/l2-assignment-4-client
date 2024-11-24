@@ -12,8 +12,7 @@ const ProductsCardDetails = () => {
   // const { title, price, stockQuantity, image, rating, description, category, brand } = product.data;
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
+  if (error) return <div>Error: {error?.message}</div>;
 
   return (
     <div className="w-11/12 mx-auto card card-side bg-base-100 my-20 shadow-xl">

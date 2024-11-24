@@ -1,4 +1,6 @@
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { BiSolidPurchaseTag } from "react-icons/bi";
+import { FaShoppingCart, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { TbListDetails } from "react-icons/tb";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
@@ -72,8 +74,10 @@ const ProductsCard = ({
         </div>
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">
+            <button className="btn btn-primary"><FaShoppingCart /></button>
           <Link to={`/products/${_id}`}>
-            <button className="btn btn-primary">Buy Now</button>
+            <button className="btn btn-primary">Details <TbListDetails />
+            </button>
           </Link>
         </div>
       </div>

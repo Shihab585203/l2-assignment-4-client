@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RootState } from "../redux/features/store";
 import { setSearchTerm } from "../redux/features/searchSlice";
 import { ChangeEvent } from "react";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -38,9 +39,9 @@ const Header = () => {
             <li><Link to='/products'>Shop</Link></li>
             <li><Link to='/about'>About us</Link></li>
             <li>
-              <a>Parent</a>
+              <a>Pages</a>
               <ul className="p-2">
-                <li><a>Submenu 1</a></li>
+                <li><a>Contact</a></li>
                 <li><a>Submenu 2</a></li>
               </ul>
             </li>
@@ -56,9 +57,9 @@ const Header = () => {
           <li><Link to='/about'>About us</Link></li>
           <li>
             <details>
-              <summary>Parent</summary>
+              <summary>Pages</summary>
               <ul className="p-2">
-                <li><a>Submenu 1</a></li>
+                <li><a>Contact</a></li>
                 <li><a>Submenu 2</a></li>
               </ul>
             </details>
@@ -67,19 +68,26 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <label className="input input-bordered flex items-center gap-2">
-          <input type="text" className="grow" placeholder="Search" value={searchTerm} onChange={handleSearchChange} />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-4 w-4 opacity-70">
-            <path
-              fillRule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clipRule="evenodd" />
-          </svg>
-        </label>
+        <div className="flex justify-center items-center gap-4">
+          <div>
+            <Link to='/cart'>
+              <FaShoppingCart size={25} />
+            </Link>
+          </div>
+          <label className="input input-bordered flex items-center gap-2">
+            <input type="text" className="grow" placeholder="Search" value={searchTerm} onChange={handleSearchChange} />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="h-4 w-4 opacity-70">
+              <path
+                fillRule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clipRule="evenodd" />
+            </svg>
+          </label>
+        </div>
       </div>
     </div>
   );
