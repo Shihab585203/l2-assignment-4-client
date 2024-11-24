@@ -1,4 +1,3 @@
-import ProductsCard from "../Products.jsx/ProductsCard";
 import ProductsCardContainer from "../Products.jsx/ProductsCardContainer";
 import Carousel from "./Carousel";
 import "./Home.css";

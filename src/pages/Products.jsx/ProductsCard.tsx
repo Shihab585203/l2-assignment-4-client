@@ -1,3 +1,6 @@
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
 type TProductProps = {
@@ -26,8 +29,13 @@ const ProductsCard = ({
   return (
     <div className="card bg-base-100 w-[22rem] shadow-xl">
       <figure>
-        <img src={image} />
+        <PhotoProvider>
+          <PhotoView src={image}>
+            <img src={image} />
+          </PhotoView>
+        </PhotoProvider>
       </figure>
+
       <div className="card-body nunito space-y-2">
         <h2 className="card-title">{title}</h2>
         <div className="flex justify-between">
@@ -51,10 +59,16 @@ const ProductsCard = ({
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="">
-            <span className="font-bold">Rating: </span>{" "}
-            <span className="font-semibold"> {rating}</span>
-          </p>
+          <div className="flex items-center space-x-2">
+            <span className="font-bold">Rating:</span>
+            <Rating
+              initialRating={rating}
+              readonly
+              emptySymbol={<FaStar color="lightgray" />}
+              fullSymbol={<FaStar color="gold" />}
+              placeholderSymbol={<FaStarHalfAlt color="gold" />}
+            />
+          </div>
         </div>
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">

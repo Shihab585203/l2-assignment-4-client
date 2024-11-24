@@ -7,9 +7,10 @@ export const baseApi = createApi({
   }),
   endpoints: (builder) => ({
     getProducts: builder.query({
-        query: () => ({
+        query: ( searchTerm = "", page = 1, limit = 10 ) => ({
             url: '/products',
-            method: 'GET'
+            method: 'GET',
+            params: { searchTerm, page, limit }
         })
     }),
     //Fetch a Product By Id

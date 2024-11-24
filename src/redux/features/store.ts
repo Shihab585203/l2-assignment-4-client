@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "../api/baseApi";
+import searchReducer from "./searchSlice";
+import paginationReducer from "./paginationSlice";
 
 export const store = configureStore({
   reducer: {
+    search: searchReducer,
+    pagination: paginationReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
 
