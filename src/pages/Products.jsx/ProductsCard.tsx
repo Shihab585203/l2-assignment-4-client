@@ -1,9 +1,10 @@
-import { BiSolidPurchaseTag } from "react-icons/bi";
 import { FaShoppingCart, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { TbListDetails } from "react-icons/tb";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import Rating from "react-rating";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addToCart } from "../../redux/features/cartSlice";
 
 type TProductProps = {
   _id: string;
@@ -28,6 +29,14 @@ const ProductsCard = ({
   price,
   image,
 }: TProductProps) => {
+  const dispatch = useDispatch();
+  
+  const handleAddToCart = () => {
+    dispatch( addToCart({ _id, title, price, image, category }))
+  }
+
+  console.log(handleAddToCart)
+
   return (
     <div className="card bg-base-100 w-[22rem] shadow-xl">
       <figure>
@@ -74,7 +83,8 @@ const ProductsCard = ({
         </div>
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">
-            <button className="btn btn-primary"><FaShoppingCart /></button>
+          {/* Cart */}
+            <button className="btn btn-primary" onClick={handleAddToCart}><FaShoppingCart /></button>
           <Link to={`/products/${_id}`}>
             <button className="btn btn-primary">Details <TbListDetails />
             </button>
