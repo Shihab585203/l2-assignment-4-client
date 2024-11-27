@@ -5,6 +5,7 @@ import Rating from "react-rating";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../redux/features/cartSlice";
+import toast from "react-hot-toast";
 
 type TProductProps = {
   _id: string;
@@ -32,7 +33,8 @@ const ProductsCard = ({
   const dispatch = useDispatch();
   
   const handleAddToCart = () => {
-    dispatch( addToCart({ _id, title, price, image, category }))
+    dispatch( addToCart({ _id, title, price, image, category }));
+    toast.success('Product Added Successfully')
   }
 
   console.log(handleAddToCart)
@@ -85,6 +87,7 @@ const ProductsCard = ({
         <div className="card-actions justify-end">
           {/* Cart */}
             <button className="btn btn-primary" onClick={handleAddToCart}><FaShoppingCart /></button>
+
           <Link to={`/products/${_id}`}>
             <button className="btn btn-primary">Details <TbListDetails />
             </button>

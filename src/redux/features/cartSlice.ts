@@ -6,6 +6,7 @@ interface Product {
     price: number;
     image: string;
     category: string;
+    quantity: number;
 }
 
 export interface cartState {
@@ -21,7 +22,13 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action: PayloadAction<Product>) => {
-            state.items.push(action.payload)
+            const existingProduct = state.items.find(item => item._id === action.payload._id);
+            if (existingProduct) {
+                existingProduct.quantity += action.payload.quantity;
+            } else {
+                state.items.push(action.payload)
+            }
+
         },
         removeFromCart: (state, action: PayloadAction<string>) => {
             state.items = state.items.filter(item => item._id !== action.payload)
