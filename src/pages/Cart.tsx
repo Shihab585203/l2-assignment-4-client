@@ -11,6 +11,10 @@ const Cart = () => {
         dispatch(removeFromCart(_id))
     }
 
+    const subTotalPrice = cartItems.reduce((sum: number, item: any) => sum + item.price, 0);
+    const vat = subTotalPrice / 100 * 15;
+    const grandTotal = subTotalPrice + vat;
+
     return (
         <div className="overflow-x-auto">
             <table className="table">
@@ -60,6 +64,21 @@ const Cart = () => {
                         </tr>
                     ))}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div className="flex flex-col gap-2">
+                                <div>Sub Total: $<span>{subTotalPrice.toFixed(2)}</span></div>
+                                <div>VAT (15%): $<span>{vat.toFixed(2)}</span></div>
+                                <div>Grand Total: $<span>{grandTotal.toFixed(2)}</span></div>
+                            </div>
+                        </th>
+                        <th><button className="btn btn-primary">Checkout</button></th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     )

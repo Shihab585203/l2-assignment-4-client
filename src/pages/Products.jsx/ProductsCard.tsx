@@ -33,11 +33,10 @@ const ProductsCard = ({
   const dispatch = useDispatch();
   
   const handleAddToCart = () => {
-    dispatch( addToCart({ _id, title, price, image, category }));
+    dispatch( addToCart({ _id, title, price, image, category, quantity: 0 }));
     toast.success('Product Added Successfully')
   }
 
-  console.log(handleAddToCart)
 
   return (
     <div className="card bg-base-100 w-[22rem] shadow-xl">
