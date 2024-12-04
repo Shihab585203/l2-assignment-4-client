@@ -2,10 +2,11 @@ import { FaShoppingCart, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { TbListDetails } from "react-icons/tb";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import Rating from "react-rating";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../redux/features/cartSlice";
 import toast from "react-hot-toast";
+import { RootState } from "../../redux/features/store";
 
 type TProductProps = {
   _id: string;
@@ -31,10 +32,19 @@ const ProductsCard = ({
   image,
 }: TProductProps) => {
   const dispatch = useDispatch();
-  
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+
   const handleAddToCart = () => {
-    dispatch( addToCart({ _id, title, price, image, category, quantity: 0 }));
-    toast.success('Product Added Successfully')
+
+    const isProductInCart = cartItems.some((item) => item._id === _id);
+
+    if (isProductInCart) {
+      toast.error('Product is already in the cart!')
+    } else {
+      dispatch(addToCart({ _id, title, price, image, category, quantity: 1 }));
+      toast.success('Product Added Successfully')
+    }
+
   }
 
 
@@ -62,7 +72,7 @@ const ProductsCard = ({
         </div>
         <div className="flex justify-between">
           <p className="">
-            <span className="font-bold">Quantity: </span>{" "}
+            <span className="font-bold">Stock: </span>{" "}
             <span className="font-semibold"> {stockQuantity}</span>
           </p>
           <p className="">
@@ -85,7 +95,7 @@ const ProductsCard = ({
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">
           {/* Cart */}
-            <button className="btn btn-primary" onClick={handleAddToCart}><FaShoppingCart /></button>
+          <button className="btn btn-primary" onClick={handleAddToCart}><FaShoppingCart /></button>
 
           <Link to={`/products/${_id}`}>
             <button className="btn btn-primary">Details <TbListDetails />
