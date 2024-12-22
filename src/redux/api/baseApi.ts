@@ -7,21 +7,41 @@ export const baseApi = createApi({
   }),
   endpoints: (builder) => ({
     getProducts: builder.query({
-        query: ( searchTerm = "", page = 1, limit = 10 ) => ({
-            url: '/products',
-            method: 'GET',
-            params: { searchTerm, page, limit }
-        })
+      query: (searchTerm = "", page = 1, limit = 10) => ({
+        url: "/products",
+        method: "GET",
+        params: { searchTerm, page, limit },
+      }),
     }),
     //Fetch a Product By Id
     getProductById: builder.query({
       query: (id) => ({
         url: `/products/${id}`,
-        method: 'GET'
-      })
-    })
+        method: "GET",
+      }),
+    }),
+    createPaymentIntent: builder.mutation({
+      query: (grandTotalPrice) => ({
+        url: "/create-payment-intent",
+        method: "POST",
+        body: { price: grandTotalPrice },
+        headers: { "Content-Type": "application/json" },
+      }),
+    }),
+    postCartProduct: builder.mutation({
+      query: (product) => ({
+        url: "/cart/post-cart-product",
+        method: "POST",
+        body: product,
+        headers: { "Content-Type": "application/json" },
+      }),
+    }),
   }),
 });
 
-
-export const { useGetProductsQuery, useGetProductByIdQuery } = baseApi;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useCreatePaymentIntentMutation,
+  usePostCartProductMutation
+} = baseApi;

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { addToCart } from "../../redux/features/cartSlice";
 import toast from "react-hot-toast";
 import { RootState } from "../../redux/features/store";
+import { usePostCartProductMutation } from "../../redux/api/baseApi";
 
 type TProductProps = {
   _id: string;
@@ -33,20 +34,35 @@ const ProductsCard = ({
 }: TProductProps) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const [postCartProduct] = usePostCartProductMutation();
 
-  const handleAddToCart = () => {
-
+  const handleAddToCart = async () => {
     const isProductInCart = cartItems.some((item) => item._id === _id);
 
     if (isProductInCart) {
-      toast.error('Product is already in the cart!')
-    } else {
-      dispatch(addToCart({ _id, title, price, image, category, quantity: 1 }));
-      toast.success('Product Added Successfully')
+      toast.error("Product is already in the cart!");
+      return;
     }
 
-  }
+    try {
+      const cartItem = {
+        _id,
+        title,
+        price,
+        image,
+        category,
+        quantity: 1,
+      };
 
+      const response = await postCartProduct(cartItem).unwrap();
+      if (response) {
+        dispatch(addToCart(cartItem));
+        toast.success("Product Added Successfully");
+      }
+    } catch (err) {
+      toast.error("Failed to Add to Cart Error!");
+    }
+  };
 
   return (
     <div className="card bg-base-100 w-[22rem] shadow-xl">
@@ -95,10 +111,13 @@ const ProductsCard = ({
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">
           {/* Cart */}
-          <button className="btn btn-primary" onClick={handleAddToCart}><FaShoppingCart /></button>
+          <button className="btn btn-primary" onClick={handleAddToCart}>
+            <FaShoppingCart />
+          </button>
 
           <Link to={`/products/${_id}`}>
-            <button className="btn btn-primary">Details <TbListDetails />
+            <button className="btn btn-primary">
+              Details <TbListDetails />
             </button>
           </Link>
         </div>
