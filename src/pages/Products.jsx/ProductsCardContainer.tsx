@@ -14,7 +14,7 @@ const ProductsCardContainer = () => {
   // const totalPages = useSelector((state: RootState) => state.pagination.totalPages);
 
   const { data, isLoading } = useGetProductsQuery( searchTerm );
-
+console.log(data?.data?.result)
 //  useEffect(() => {
 //     if (data?.totalCount) {
 //       const pages = Math.ceil(data.totalCount / 10);
