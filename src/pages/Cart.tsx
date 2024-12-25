@@ -5,13 +5,14 @@ import {
   removeFromCart,
 } from "../redux/features/cartSlice";
 import { Link } from "react-router-dom";
-import { useCreatePaymentIntentMutation } from "../redux/api/baseApi";
+import { useCreatePaymentIntentMutation, useDeleteCartProductMutation } from "../redux/api/baseApi";
 import { setClientSecret } from "../redux/features/paymentSlice";
 
 const Cart = () => {
   const cartItems = useSelector((state: any) => state.cart.items);
   const dispatch = useDispatch();
   const [createPaymentIntent] = useCreatePaymentIntentMutation();
+  const [deleteCartProduct] = useDeleteCartProductMutation();
 
   const handleIncrement = (_id: string) => {
     dispatch(incrementQuantity(_id));
@@ -23,6 +24,7 @@ const Cart = () => {
 
   const handleRemoveFromCart = (_id: string) => {
     dispatch(removeFromCart(_id));
+    deleteCartProduct(_id).unwrap();
   };
 
   const subTotalPrice = cartItems.reduce(

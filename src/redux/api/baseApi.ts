@@ -36,6 +36,12 @@ export const baseApi = createApi({
         headers: { "Content-Type": "application/json" },
       }),
     }),
+    deleteCartProduct: builder.mutation({
+      query: (_id) => ({
+        url: `/cart/delete-cart-product/${_id}`,
+        method: "DELETE",
+      })
+    })
   }),
 });
 
@@ -43,5 +49,6 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useCreatePaymentIntentMutation,
-  usePostCartProductMutation
+  usePostCartProductMutation,
+  useDeleteCartProductMutation
 } = baseApi;
