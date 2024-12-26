@@ -20,9 +20,16 @@ export const baseApi = createApi({
         method: "GET",
       }),
     }),
+    createPaymentData: builder.mutation({
+      query: (payment) => ({
+        url: "/payment/create-payment-data",
+        method: "POST",
+        body: payment
+      })
+    }),
     createPaymentIntent: builder.mutation({
       query: (grandTotalPrice) => ({
-        url: "/create-payment-intent",
+        url: "/payment/create-payment-intent",
         method: "POST",
         body: { price: grandTotalPrice },
         headers: { "Content-Type": "application/json" },
@@ -36,6 +43,12 @@ export const baseApi = createApi({
         headers: { "Content-Type": "application/json" },
       }),
     }),
+    getCartProducts: builder.query({
+      query: () => ({
+        url: '/cart',
+        method: 'GET',
+      })
+    }),
     deleteCartProduct: builder.mutation({
       query: (_id) => ({
         url: `/cart/delete-cart-product/${_id}`,
@@ -48,7 +61,9 @@ export const baseApi = createApi({
 export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
+  useCreatePaymentDataMutation,
   useCreatePaymentIntentMutation,
   usePostCartProductMutation,
+  useGetCartProductsQuery,
   useDeleteCartProductMutation
 } = baseApi;

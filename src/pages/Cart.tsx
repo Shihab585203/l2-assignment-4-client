@@ -3,16 +3,25 @@ import {
   decrementQuantity,
   incrementQuantity,
   removeFromCart,
+  setCartItem,
 } from "../redux/features/cartSlice";
 import { Link } from "react-router-dom";
-import { useCreatePaymentIntentMutation, useDeleteCartProductMutation } from "../redux/api/baseApi";
+import { useCreatePaymentIntentMutation, useDeleteCartProductMutation, useGetCartProductsQuery } from "../redux/api/baseApi";
 import { setClientSecret } from "../redux/features/paymentSlice";
+import { useEffect } from "react";
 
 const Cart = () => {
   const cartItems = useSelector((state: any) => state.cart.items);
   const dispatch = useDispatch();
   const [createPaymentIntent] = useCreatePaymentIntentMutation();
+  const { data: cartProductsData, isLoading} = useGetCartProductsQuery({});
   const [deleteCartProduct] = useDeleteCartProductMutation();
+
+  useEffect(() => {
+    if(cartProductsData?.data){
+      dispatch(setCartItem(cartProductsData.data))
+    }
+  }, [])
 
   const handleIncrement = (_id: string) => {
     dispatch(incrementQuantity(_id));

@@ -1,6 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useCreatePaymentDataMutation } from "../../redux/api/baseApi";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../../redux/features/cartSlice";
 
 type PaymentMethodType = "card" | "cash";
 
@@ -29,6 +32,9 @@ const CheckoutForm = () => {
 
   const cartItems = useSelector((state: any) => state.cart.items);
   const { clientSecret } = useSelector((state: any) => state.payment);
+  const [createPaymentData] = useCreatePaymentDataMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   console.log(clientSecret);
 
@@ -51,11 +57,36 @@ const CheckoutForm = () => {
     }));
   };
 
+  const handlePaymentMethodChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPaymentMethod(event.target.value as PaymentMethodType)
+  }
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+
     if (paymentMethod === "cash") {
-      return;
+      const cashOrderData = {
+        name: userDetails.name,
+        email: userDetails.email,
+        price: grandTotalPrice,
+        phone: userDetails.phone,
+        transactionId: `SPG-${Date.now()}`,
+        date: new Date(),
+        cartIds: cartItems.map((item) => item._id),
+        status: "pending",
+        paymentMethod: "cash",
+      };
+
+      try {
+        await createPaymentData(cashOrderData).unwrap();
+        dispatch(clearCart());
+        navigate('/');
+        return;
+      } catch (err) {
+        setError("Failed to Place Order");
+        return;
+      }
     }
 
     if (!stripe || !elements || !clientSecret) {
@@ -111,14 +142,25 @@ const CheckoutForm = () => {
         //Save the payment in the database
         const paymentUserData = {
           name: userDetails.name,
-            email: userDetails.email,
-            phone: userDetails.phone,
-            transactionId: paymentIntent.id,
-            date: new Date(),
-            cartId: cartItems.map(item => item._id),
-            status: 'pending'
-        }
+          email: userDetails.email,
+          price: grandTotalPrice,
+          phone: userDetails.phone,
+          transactionId: paymentIntent.id,
+          date: new Date(),
+          cartIds: cartItems.map((item) => item._id),
+          status: "pending",
+          paymentMethod: "card",
+        };
 
+        try {
+          await createPaymentData(paymentUserData).unwrap();
+          dispatch(clearCart());
+          navigate('/');
+        } catch (err) {
+          setError(
+            "Payment Successfull but Failed to Save Data. Please Contact Support."
+          );
+        }
       }
     }
   };
@@ -196,7 +238,7 @@ const CheckoutForm = () => {
           <label className="block text-sm font-medium text-gray-700">
             Postal Code
           </label>
-          
+
           <input
             type="text"
             name="postCode"
@@ -219,7 +261,7 @@ const CheckoutForm = () => {
               type="radio"
               value="cash"
               checked={paymentMethod === "cash"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={handlePaymentMethodChange}
               className="form-radio"
             />
             <span className="ml-2">Cash on Delivery</span>
@@ -229,7 +271,7 @@ const CheckoutForm = () => {
               type="radio"
               value="card"
               checked={paymentMethod === "card"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={handlePaymentMethodChange}
               className="form-radio"
             />
             <span className="ml-2">Card Payment</span>
