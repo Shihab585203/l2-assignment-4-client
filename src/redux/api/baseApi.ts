@@ -6,11 +6,20 @@ export const baseApi = createApi({
     baseUrl: "http://localhost:5000/api/v1",
   }),
   endpoints: (builder) => ({
+    getCategories: builder.query({
+      query: () => ({
+        url: "/products/categories",
+        method: "GET",
+      }),
+    }),
     getProducts: builder.query({
-      query: (searchTerm = "", page = 1, limit = 10) => ({
+      query: (params: {searchTerm?: string, category?: string, page?: number, limit?: number}) => ({
         url: "/products",
         method: "GET",
-        params: { searchTerm, page, limit },
+        params: { searchTerm: params.searchTerm || "", 
+          category: params.category || "", 
+          page: params.page || 1, 
+          limit: params.limit || 10 },
       }),
     }),
     //Fetch a Product By Id
@@ -24,8 +33,8 @@ export const baseApi = createApi({
       query: (payment) => ({
         url: "/payment/create-payment-data",
         method: "POST",
-        body: payment
-      })
+        body: payment,
+      }),
     }),
     createPaymentIntent: builder.mutation({
       query: (grandTotalPrice) => ({
@@ -45,25 +54,26 @@ export const baseApi = createApi({
     }),
     getCartProducts: builder.query({
       query: () => ({
-        url: '/cart',
-        method: 'GET',
-      })
+        url: "/cart",
+        method: "GET",
+      }),
     }),
     deleteCartProduct: builder.mutation({
       query: (_id) => ({
         url: `/cart/delete-cart-product/${_id}`,
         method: "DELETE",
-      })
-    })
+      }),
+    }),
   }),
 });
 
 export const {
+  useGetCategoriesQuery,
   useGetProductsQuery,
   useGetProductByIdQuery,
   useCreatePaymentDataMutation,
   useCreatePaymentIntentMutation,
   usePostCartProductMutation,
   useGetCartProductsQuery,
-  useDeleteCartProductMutation
+  useDeleteCartProductMutation,
 } = baseApi;
