@@ -13,13 +13,15 @@ export const baseApi = createApi({
       }),
     }),
     getProducts: builder.query({
-      query: (params: {searchTerm?: string, category?: string, page?: number, limit?: number}) => ({
+      query: (params: {searchTerm?: string, category?: string, page?: number, limit?: number, sort?: string}) => ({
         url: "/products",
         method: "GET",
         params: { searchTerm: params.searchTerm || "", 
           category: params.category || "", 
           page: params.page || 1, 
-          limit: params.limit || 10 },
+          limit: params.limit || 10,
+          sort: params.sort || "",
+        },
       }),
     }),
     //Fetch a Product By Id

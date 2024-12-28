@@ -1,3 +1,4 @@
+import Category from "../Category/Category";
 import ProductsCardContainer from "../Products.jsx/ProductsCardContainer";
 import Carousel from "./Carousel";
 import "./Home.css";
@@ -13,6 +14,7 @@ const Home = () => {
           Featured Products
         </h1>
         <ProductsCardContainer/>
+        <Category/>
       </div>
     </>
   );

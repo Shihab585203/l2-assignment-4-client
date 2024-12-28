@@ -5,6 +5,7 @@ import paginationReducer from "./paginationSlice";
 import cartReducer from "./cartSlice";
 import paymentReducer from "./paymentSlice";
 import categoryReducer from "./categorySlice";
+import sortingReducer from "./sortingSlice";
 
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
     pagination: paginationReducer,
     payment: paymentReducer,
     filteringCategory: categoryReducer,
+    sorting: sortingReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
 

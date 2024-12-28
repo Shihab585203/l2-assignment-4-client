@@ -1,25 +1,58 @@
 import { useDispatch } from "react-redux";
-import { useGetCategoriesQuery } from "../../redux/api/baseApi"
+import { useGetCategoriesQuery } from "../../redux/api/baseApi";
 import { setCategory } from "../../redux/features/categorySlice";
+import { Link } from "react-router-dom";
 
 const Category = () => {
-    const {data} = useGetCategoriesQuery(undefined);
-    console.log(data?.data)
-    const dispatch = useDispatch();
+  const { data } = useGetCategoriesQuery(undefined);
+  const dispatch = useDispatch();
+
+  const categoryButtonDesign = [
+    "btn",
+    "bg-red-100",
+    "w-24",
+    "h-24",
+    "rounded-full",
+    "flex",
+    "items-center",
+    "justify-center",
+    "hover:bg-red-600",
+    "hover:text-white",
+    "transition",
+    "duration-300",
+  ];
+
+  const handleCategoryClick = (category: string) => {
+    dispatch(setCategory(category));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <div className="flex gap-4 w-11/12 mx-auto mt-6">
-        <h2 className="text-md text-3xl text-center">Categories</h2>
-        <button className="btn btn-outline" onClick={ () => dispatch(setCategory("")) }>All</button>
-        {
-            data?.data?.map((category: string) => (
-                <button className="btn btn-outline" key={category} onClick={() => dispatch(setCategory(category))}>
-                    {category}
-                </button>
-            ))
-        }
-    </div>
-  )
-}
+    <>
+      <h2 className="text-md text-4xl text-center font-semibold">Categories</h2>
+      <div className="flex justify-center items-center w-11/12 mx-auto my-6 gap-4">
+        <Link to="/products">
+          <button
+            className={categoryButtonDesign.join(" ")}
+            onClick={() => handleCategoryClick("")}
+          >
+            All
+          </button>
+        </Link>
+        {data?.data?.map((category: string) => (
+          <Link to="/products">
+            <button
+              className={categoryButtonDesign.join(" ")}
+              key={category}
+              onClick={() => handleCategoryClick(category)}
+            >
+              {category}
+            </button>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+};
 
-export default Category
+export default Category;
