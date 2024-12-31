@@ -1,4 +1,4 @@
-import { FaShoppingCart, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaEdit, FaShoppingCart, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { TbListDetails } from "react-icons/tb";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import Rating from "react-rating";
@@ -8,6 +8,7 @@ import { addToCart } from "../../redux/features/cartSlice";
 import toast from "react-hot-toast";
 import { RootState } from "../../redux/features/store";
 import { usePostCartProductMutation } from "../../redux/api/baseApi";
+import { AiFillDelete } from "react-icons/ai";
 
 type TProductProps = {
   _id: string;
@@ -111,15 +112,20 @@ const ProductsCard = ({
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">
           {/* Cart */}
-          <button className="btn btn-primary" onClick={handleAddToCart}>
+          <button className="btn bg-red-500 hover:bg-red-600 text-white" onClick={handleAddToCart}>
             <FaShoppingCart />
           </button>
-
           <Link to={`/products/${_id}`}>
-            <button className="btn btn-primary">
+            <button className="btn bg-red-500 hover:bg-red-600 text-white">
               Details <TbListDetails />
             </button>
           </Link>
+          <button className="btn bg-red-500 hover:bg-red-600 text-white" >
+            <FaEdit />
+          </button>
+          <button className="btn bg-red-500 hover:bg-red-600 text-white" >
+            <AiFillDelete />
+          </button>
         </div>
       </div>
     </div>

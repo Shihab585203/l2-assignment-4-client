@@ -6,37 +6,53 @@ import ProductsCardContainer from "../pages/Products.jsx/ProductsCardContainer";
 import ProductsCardDetails from "../pages/Products.jsx/ProductsCardDetails";
 import Cart from "../pages/Cart";
 import Payment from "../pages/Payment/Payment";
-
+import Dashboard from "../pages/Dashboard/Dashboard";
+import CreateProduct from "../pages/Products.jsx/CreateProduct";
+import DashboardLayout from "../pages/Dashboard/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-        {
-           path: '/',
-           element: <Home/> 
-        },
-        {
-          path: '/about',
-          element: <About/>
-        },
-        {
-          path: '/products',
-          element: <ProductsCardContainer/>
-        },
-        {
-          path: '/products/:id',
-          element: <ProductsCardDetails/>
-        },
-        {
-          path: '/cart',
-          element: <Cart/>
-        },
-        {
-          path: '/payment',
-          element: <Payment/>
-        }
-    ]
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/products",
+        element: <ProductsCardContainer />,
+      },
+      {
+        path: "/products/:id",
+        element: <ProductsCardDetails />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/payment",
+        element: <Payment />,
+      },
+      {
+        path: "/dashboard",
+        element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <Dashboard />,
+          },
+          {
+            path: "/dashboard/create-product",
+            element: <CreateProduct />,
+          },
+        ],
+      },
+    ],
   },
 ]);

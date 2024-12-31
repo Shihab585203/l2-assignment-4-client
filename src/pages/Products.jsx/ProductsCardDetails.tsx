@@ -7,12 +7,11 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 const ProductsCardDetails = () => {
   const { id } = useParams();
 
-  const { data: product, isLoading, error } = useGetProductByIdQuery(id);
+  const { data: product, isLoading, error: productError } = useGetProductByIdQuery(id);
 
-  // const { title, price, stockQuantity, image, rating, description, category, brand } = product.data;
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error?.message}</div>;
+  if (productError) return <div>Error: {productError}</div>;
 
   return (
     <div className="w-11/12 mx-auto card card-side bg-base-100 my-20 shadow-xl">

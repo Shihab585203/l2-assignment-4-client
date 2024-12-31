@@ -6,6 +6,14 @@ export const baseApi = createApi({
     baseUrl: "http://localhost:5000/api/v1",
   }),
   endpoints: (builder) => ({
+    createProduct: builder.mutation({
+      query: (product) => ({
+        url: "/products/create-product",
+        method: "POST",
+        body: product,
+        headers: { "Content-Type": "application/json" },
+      }),
+    }),
     getCategories: builder.query({
       query: () => ({
         url: "/products/categories",
@@ -13,12 +21,19 @@ export const baseApi = createApi({
       }),
     }),
     getProducts: builder.query({
-      query: (params: {searchTerm?: string, category?: string, page?: number, limit?: number, sort?: string}) => ({
+      query: (params: {
+        searchTerm?: string;
+        category?: string;
+        page?: number;
+        limit?: number;
+        sort?: string;
+      }) => ({
         url: "/products",
         method: "GET",
-        params: { searchTerm: params.searchTerm || "", 
-          category: params.category || "", 
-          page: params.page || 1, 
+        params: {
+          searchTerm: params.searchTerm || "",
+          category: params.category || "",
+          page: params.page || 1,
           limit: params.limit || 10,
           sort: params.sort || "",
         },
@@ -70,6 +85,7 @@ export const baseApi = createApi({
 });
 
 export const {
+  useCreateProductMutation,
   useGetCategoriesQuery,
   useGetProductsQuery,
   useGetProductByIdQuery,
