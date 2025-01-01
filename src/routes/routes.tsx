@@ -9,6 +9,7 @@ import Payment from "../pages/Payment/Payment";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import CreateProduct from "../pages/Products.jsx/CreateProduct";
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
+import UpdateProduct from "../pages/Products.jsx/UpdateProduct";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/products/:id",
         element: <ProductsCardDetails />,
+      },
+      {
+        path: "/update-product/:id",
+        element: <UpdateProduct />,
       },
       {
         path: "/cart",

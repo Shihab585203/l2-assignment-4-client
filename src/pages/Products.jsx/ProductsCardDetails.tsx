@@ -7,8 +7,11 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 const ProductsCardDetails = () => {
   const { id } = useParams();
 
-  const { data: product, isLoading, error: productError } = useGetProductByIdQuery(id);
-
+  const {
+    data: product,
+    isLoading,
+    error: productError,
+  } = useGetProductByIdQuery(id);
 
   if (isLoading) return <div>Loading...</div>;
   if (productError) return <div>Error: {productError}</div>;

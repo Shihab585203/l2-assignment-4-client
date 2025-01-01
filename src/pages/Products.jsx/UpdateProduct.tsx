@@ -1,12 +1,67 @@
-
+import { useParams } from "react-router-dom";
+import {
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from "../../redux/api/baseApi";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const UpdateProduct = () => {
+  const { id } = useParams();
 
-    const handleUpdateProduct = () => {
-        
+  const { data: product, isLoading } = useGetProductByIdQuery(id);
+  const [updateProduct] = useUpdateProductMutation();
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "",
+    stockQuantity: 0,
+    brand: "",
+    rating: 0,
+    price: 0,
+    description: "",
+    image: "",
+  });
+
+  useEffect(() => {
+    if (product) {
+      setFormData({
+        title: product?.data?.title || "",
+        category: product?.data?.category || "",
+        stockQuantity: product?.data?.stockQuantity || 0,
+        brand: product?.data?.brand || "",
+        rating: product?.data?.rating || 0,
+        price: product?.data?.price || 0,
+        description: product?.data?.description || "",
+        image: product?.data?.image || "",
+      });
     }
+  }, [product]);
 
-    return (
+  const handleEventChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  console.log("form data to update:", formData);
+
+  const handleUpdateProduct = async (event) => {
+    try {
+      event.preventDefault();
+
+      const payload = {
+        id,
+        data: { ...formData },
+      };
+
+      await updateProduct(payload).unwrap();
+      console.log("updated product", updateProduct);
+      toast.success("Your Product Updated Successfully!");
+    } catch (err) {
+      toast.error("Failed to Update Product.");
+    }
+  };
+
+  return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center mt-20">
       <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-bold mb-4 text-center">
@@ -22,6 +77,8 @@ const UpdateProduct = () => {
                 type="text"
                 id="title"
                 name="title"
+                value={formData.title}
+                onChange={handleEventChange}
                 className="input input-bordered"
                 required
               />
@@ -34,6 +91,8 @@ const UpdateProduct = () => {
                 type="text"
                 id="category"
                 name="category"
+                value={formData.category}
+                onChange={handleEventChange}
                 className="input input-bordered"
                 required
               />
@@ -46,6 +105,8 @@ const UpdateProduct = () => {
                 type="number"
                 id="stockQuantity"
                 name="stockQuantity"
+                value={formData.stockQuantity}
+                onChange={handleEventChange}
                 className="input input-bordered"
                 min="0"
                 required
@@ -59,6 +120,8 @@ const UpdateProduct = () => {
                 type="text"
                 id="brand"
                 name="brand"
+                value={formData.brand}
+                onChange={handleEventChange}
                 className="input input-bordered"
                 required
               />
@@ -71,6 +134,8 @@ const UpdateProduct = () => {
                 type="number"
                 id="rating"
                 name="rating"
+                value={formData.rating}
+                onChange={handleEventChange}
                 className="input input-bordered"
                 step="0.1"
                 min="0"
@@ -86,6 +151,8 @@ const UpdateProduct = () => {
                 type="number"
                 id="price"
                 name="price"
+                value={formData.price}
+                onChange={handleEventChange}
                 className="input input-bordered"
                 step="0.01"
                 min="0"
@@ -99,6 +166,8 @@ const UpdateProduct = () => {
               <textarea
                 id="description"
                 name="description"
+                value={formData.description}
+                onChange={handleEventChange}
                 className="textarea textarea-bordered"
                 rows="5"
                 required
@@ -112,6 +181,8 @@ const UpdateProduct = () => {
                 type="url"
                 id="image"
                 name="image"
+                value={formData.image}
+                onChange={handleEventChange}
                 className="input input-bordered"
                 required
               />
@@ -128,7 +199,7 @@ const UpdateProduct = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UpdateProduct
+export default UpdateProduct;

@@ -42,6 +42,13 @@ export const baseApi = createApi({
       }),
       providesTags: ["Product"],
     }),
+    // getFeaturedProducts: builder.query({
+    //   query: () => ({
+    //     url: "/products",
+    //     method: "GET",
+    //   }),
+    //   providesTags: ["Product"],
+    // }),
     //Fetch a Product By Id
     getProductById: builder.query({
       query: (id) => ({
@@ -50,10 +57,10 @@ export const baseApi = createApi({
       }),
     }),
     updateProduct: builder.mutation({
-      query: ({ id, product }) => ({
+      query: ({ id, data }) => ({
         url: `/products/update-product/${id}`,
         method: "PATCH",
-        body: product,
+        body: data,
         headers: { "Content-Type": "application/json" },
       }),
     }),

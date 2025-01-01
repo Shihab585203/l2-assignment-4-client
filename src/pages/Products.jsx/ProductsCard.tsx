@@ -124,20 +124,22 @@ const ProductsCard = ({
         <div className="card-actions justify-end">
           {/* Cart */}
           <button
-            className="btn bg-red-500 hover:bg-red-600 text-white"
+            className="btn btn-primary  text-white"
             onClick={handleAddToCart}
           >
             <FaShoppingCart />
           </button>
           <Link to={`/products/${_id}`}>
-            <button className="btn bg-red-500 hover:bg-red-600 text-white">
+            <button className="btn btn-primary  text-white">
               Details <TbListDetails />
             </button>
           </Link>
-          <button className="btn bg-red-500 hover:bg-red-600 text-white">
+          <Link to={`/update-product/${_id}`}>
+          <button className="btn btn-primary  text-white">
             <FaEdit />
           </button>
-          <button onClick={handleDeleteProduct} className="btn bg-red-500 hover:bg-red-600 text-white">
+          </Link>
+          <button onClick={handleDeleteProduct} className="btn btn-primary text-white">
             <AiFillDelete />
           </button>
         </div>
