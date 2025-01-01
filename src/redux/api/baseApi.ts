@@ -5,6 +5,7 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/api/v1",
   }),
+  tagTypes: ["Product", "Cart"],
   endpoints: (builder) => ({
     createProduct: builder.mutation({
       query: (product) => ({
@@ -13,6 +14,7 @@ export const baseApi = createApi({
         body: product,
         headers: { "Content-Type": "application/json" },
       }),
+      invalidatesTags: ["Product"],
     }),
     getCategories: builder.query({
       query: () => ({
@@ -38,6 +40,7 @@ export const baseApi = createApi({
           sort: params.sort || "",
         },
       }),
+      providesTags: ["Product"],
     }),
     //Fetch a Product By Id
     getProductById: builder.query({
@@ -45,6 +48,21 @@ export const baseApi = createApi({
         url: `/products/${id}`,
         method: "GET",
       }),
+    }),
+    updateProduct: builder.mutation({
+      query: ({ id, product }) => ({
+        url: `/products/update-product/${id}`,
+        method: "PATCH",
+        body: product,
+        headers: { "Content-Type": "application/json" },
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/delete-product/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Product"],
     }),
     createPaymentData: builder.mutation({
       query: (payment) => ({
@@ -89,6 +107,8 @@ export const {
   useGetCategoriesQuery,
   useGetProductsQuery,
   useGetProductByIdQuery,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
   useCreatePaymentDataMutation,
   useCreatePaymentIntentMutation,
   usePostCartProductMutation,

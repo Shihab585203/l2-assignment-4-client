@@ -7,8 +7,12 @@ import { Link } from "react-router-dom";
 import { addToCart } from "../../redux/features/cartSlice";
 import toast from "react-hot-toast";
 import { RootState } from "../../redux/features/store";
-import { usePostCartProductMutation } from "../../redux/api/baseApi";
+import {
+  useDeleteProductMutation,
+  usePostCartProductMutation,
+} from "../../redux/api/baseApi";
 import { AiFillDelete } from "react-icons/ai";
+import { MouseEvent } from "react";
 
 type TProductProps = {
   _id: string;
@@ -36,6 +40,7 @@ const ProductsCard = ({
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const [postCartProduct] = usePostCartProductMutation();
+  const [deleteProduct] = useDeleteProductMutation();
 
   const handleAddToCart = async () => {
     const isProductInCart = cartItems.some((item) => item._id === _id);
@@ -63,6 +68,12 @@ const ProductsCard = ({
     } catch (err) {
       toast.error("Failed to Add to Cart Error!");
     }
+  };
+
+  const handleDeleteProduct = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    await deleteProduct(_id);
+    toast.success("Product Deleted Successfully");
   };
 
   return (
@@ -112,7 +123,10 @@ const ProductsCard = ({
         <p>{description.slice(0, 85)}...</p>
         <div className="card-actions justify-end">
           {/* Cart */}
-          <button className="btn bg-red-500 hover:bg-red-600 text-white" onClick={handleAddToCart}>
+          <button
+            className="btn bg-red-500 hover:bg-red-600 text-white"
+            onClick={handleAddToCart}
+          >
             <FaShoppingCart />
           </button>
           <Link to={`/products/${_id}`}>
@@ -120,10 +134,10 @@ const ProductsCard = ({
               Details <TbListDetails />
             </button>
           </Link>
-          <button className="btn bg-red-500 hover:bg-red-600 text-white" >
+          <button className="btn bg-red-500 hover:bg-red-600 text-white">
             <FaEdit />
           </button>
-          <button className="btn bg-red-500 hover:bg-red-600 text-white" >
+          <button onClick={handleDeleteProduct} className="btn bg-red-500 hover:bg-red-600 text-white">
             <AiFillDelete />
           </button>
         </div>

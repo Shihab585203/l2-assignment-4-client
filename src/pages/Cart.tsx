@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useCreatePaymentIntentMutation, useDeleteCartProductMutation, useGetCartProductsQuery } from "../redux/api/baseApi";
 import { setClientSecret } from "../redux/features/paymentSlice";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const cartItems = useSelector((state: any) => state.cart.items);
@@ -34,6 +35,7 @@ const Cart = () => {
   const handleRemoveFromCart = (_id: string) => {
     dispatch(removeFromCart(_id));
     deleteCartProduct(_id).unwrap();
+    toast.success("Product Removed Successfully!")
   };
 
   const subTotalPrice = cartItems.reduce(
