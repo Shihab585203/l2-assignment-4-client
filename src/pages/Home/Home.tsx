@@ -1,6 +1,5 @@
 import Category from "../Category/Category";
 import FeaturedProducts from "../Products.jsx/FeaturedProducts/FeaturedProducts";
-import ProductsCardContainer from "../Products.jsx/ProductsCardContainer";
 import Carousel from "./Carousel";
 import "./Home.css";
 

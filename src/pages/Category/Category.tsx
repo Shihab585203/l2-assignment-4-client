@@ -9,14 +9,14 @@ const Category = () => {
 
   const categoryButtonDesign = [
     "btn",
-    "bg-red-100",
+    "bg-indigo-100",
     "w-24",
     "h-24",
     "rounded-full",
     "flex",
     "items-center",
     "justify-center",
-    "hover:bg-red-600",
+    "hover:bg-primary",
     "hover:text-white",
     "transition",
     "duration-300",
