@@ -1,22 +1,3 @@
-// const carouselItems = [
-//   {
-//     id: "slide1",
-//     title: "20% Discount on FC Barcelona's Latest Sleeve T-Shirt!",
-//     description: "Get 20% off FC Barcelona's latest sleeve T-shirt! Show your team pride with this stylish addition to your wardrobe. Don't miss out—grab yours now and support Barça in style!",
-//     img: "https://i.ibb.co/G0h0Myg/carousel-1.jpg",
-//     leftArrow: "#slide4",
-//     rightArrow: "#slide2"
-//   },
-//   {
-//     id: "slide2",
-//     title: "15% Discount on Real Madrid CF's Latest Sleeve T-Shirt!",
-//     description: "Get 20% off FC Barcelona's latest sleeve T-shirt! Show your team pride with this stylish addition to your wardrobe. Don't miss out—grab yours now and support Barça in style!",
-//     img: "https://i.ibb.co/Kh6HQF3/carousel-2.jpg",
-//     leftArrow: "#slide4",
-//     rightArrow: "#slide2"
-//   },
-// ]
-
 const Carousel = () => {
   return (
     <div className="carousel w-full">

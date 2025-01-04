@@ -58,6 +58,10 @@ const Cart = () => {
     }
   };
 
+  if(isLoading){
+    <h2>Loading...</h2>
+  }
+
   return (
     <div className="overflow-x-auto pt-4">
       <table className="table my-20">

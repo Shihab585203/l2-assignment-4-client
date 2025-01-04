@@ -4,7 +4,7 @@ import { setCategory } from "../../redux/features/categorySlice";
 import { Link } from "react-router-dom";
 
 const Category = () => {
-  const { data } = useGetCategoriesQuery(undefined);
+  const { data: categories } = useGetCategoriesQuery(undefined);
   const dispatch = useDispatch();
 
   const categoryButtonDesign = [
@@ -39,11 +39,10 @@ const Category = () => {
             All
           </button>
         </Link>
-        {data?.data?.map((category: string) => (
-          <Link to="/products">
+        {categories?.data?.map((category: string) => (
+          <Link to="/products" key={category}>
             <button
               className={categoryButtonDesign.join(" ")}
-              key={category}
               onClick={() => handleCategoryClick(category)}
             >
               {category}

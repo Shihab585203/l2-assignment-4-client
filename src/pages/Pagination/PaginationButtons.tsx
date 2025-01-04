@@ -9,7 +9,7 @@ const PaginationButtons = () => {
   );
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-console.log(pages)
+  console.log(pages);
   return (
     <div className="join flex justify-center items-center my-6">
       <input
@@ -22,17 +22,17 @@ console.log(pages)
         aria-label="Prev"
         disabled={currentPage === 1}
       />
-      {pages.map((page) => (        
-      <input
-      key={page}
-      type="radio"
-      name="options"
-      className={`join-item btn btn-square ${
-        currentPage === page ? "btn-active" : ""
-      }`}
-      onClick={() => dispatch(setCurrentPage(page))}
-      aria-label={page}
-    />
+      {pages.map((page) => (
+        <input
+          key={page}
+          type="radio"
+          name="options"
+          className={`join-item btn btn-square ${
+            currentPage === page ? "btn-active" : ""
+          }`}
+          onClick={() => dispatch(setCurrentPage(page))}
+          aria-label={`${page}`}
+        />
       ))}
       <input
         type="radio"

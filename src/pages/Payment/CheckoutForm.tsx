@@ -16,6 +16,15 @@ interface UserDetails {
   postCode: string;
 }
 
+interface CartItem {
+  _id: string;
+  title: string;
+  price: number;
+  image: string;
+  category: string;
+  quantity: number;
+}
+
 const CheckoutForm = () => {
   const [error, setError] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -30,7 +39,7 @@ const CheckoutForm = () => {
     postCode: "",
   });
 
-  const cartItems = useSelector((state: any) => state.cart.items);
+  const cartItems = useSelector((state: { cart: {items : CartItem[]} }) => state.cart.items);
   const { clientSecret } = useSelector((state: any) => state.payment);
   const [createPaymentData] = useCreatePaymentDataMutation();
   const dispatch = useDispatch();
