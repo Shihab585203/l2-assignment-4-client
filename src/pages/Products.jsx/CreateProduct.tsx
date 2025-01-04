@@ -126,7 +126,7 @@ const CreateProduct = () => {
                 id="description"
                 name="description"
                 className="textarea textarea-bordered"
-                rows="5"
+                rows={5}
                 required
               ></textarea>
             </div>

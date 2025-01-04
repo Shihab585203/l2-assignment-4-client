@@ -2,6 +2,7 @@ import { FormEvent, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Lottie from "lottie-react";
 import contactAnimation from "../../../public/contactAnimation.json";
+import toast from "react-hot-toast";
 
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
@@ -9,22 +10,25 @@ const Contact = () => {
   const handleContactForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    emailjs
-      .sendForm(
-        "sehab50100",
-        "template_7lj93wi",
-        form.current,
-        "Le6LPWQsFxqCsdi5-"
-      )
-      .then(
-        (result) => {
-          console.log("Successfully Email Sent!", result);
-          form.current.reset();
-        },
-        (err) => {
-          console.log("Failed to send email", err);
-        }
-      );
+    if (form.current) {
+      emailjs
+        .sendForm(
+          "sehab50100",
+          "template_7lj93wi",
+          form.current,
+          "Le6LPWQsFxqCsdi5-"
+        )
+        .then(
+          (result) => {
+            console.log("Successfully Email Sent!", result);
+            form.current?.reset();
+            toast.success('Success Email has been sent!');
+          },
+          (err) => {
+            console.log("Failed to send email", err);
+          }
+        );
+    }
   };
 
   return (

@@ -12,7 +12,9 @@ import {
   usePostCartProductMutation,
 } from "../../redux/api/baseApi";
 import { AiFillDelete } from "react-icons/ai";
-import { MouseEvent } from "react";
+import { ComponentType, MouseEvent } from "react";
+
+const TypedRating = Rating as ComponentType<any>;
 
 type TProductProps = {
   _id: string;
@@ -66,7 +68,7 @@ const ProductsCard = ({
         toast.success("Product Added Successfully");
       }
     } catch (err) {
-      toast.error("Failed to Add to Cart Error!");
+      toast.error("Failed to Add to Cart this product");
     }
   };
 
@@ -111,7 +113,7 @@ const ProductsCard = ({
         <div className="flex justify-between">
           <div className="flex items-center space-x-2">
             <span className="font-bold">Rating:</span>
-            <Rating
+            <TypedRating
               initialRating={rating}
               readonly
               emptySymbol={<FaStar color="lightgray" />}
