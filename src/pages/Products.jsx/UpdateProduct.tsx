@@ -3,7 +3,7 @@ import {
   useGetProductByIdQuery,
   useUpdateProductMutation,
 } from "../../redux/api/baseApi";
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const UpdateProduct = () => {
@@ -37,14 +37,12 @@ const UpdateProduct = () => {
     }
   }, [product]);
 
-  const handleEventChange = (event) => {
+  const handleEventChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  console.log("form data to update:", formData);
-
-  const handleUpdateProduct = async (event) => {
+  const handleUpdateProduct = async (event: FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
 
@@ -60,6 +58,10 @@ const UpdateProduct = () => {
       toast.error("Failed to Update Product.");
     }
   };
+
+  if(isLoading){
+    <h2>Loading...</h2>
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center mt-20">
@@ -169,7 +171,7 @@ const UpdateProduct = () => {
                 value={formData.description}
                 onChange={handleEventChange}
                 className="textarea textarea-bordered"
-                rows="5"
+                rows={5}
                 required
               ></textarea>
             </div>

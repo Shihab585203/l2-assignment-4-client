@@ -1,4 +1,5 @@
 import Category from "../Category/Category";
+import Contact from "../Contact/Contact";
 import FeaturedProducts from "../Products.jsx/FeaturedProducts/FeaturedProducts";
 import Carousel from "./Carousel";
 import "./Home.css";
@@ -15,6 +16,7 @@ const Home = () => {
         </h1>
         <FeaturedProducts/>
         <Category/>
+        <Contact/>
       </div>
     </>
   );
