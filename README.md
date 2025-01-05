@@ -8,3 +8,4 @@
 - used stripe payment gateway integration and cash on delivery. after payment pay button click. it will redirect to homepage.
 - After implementing data. website alert with success or error shows with `react-hot-toast` library.
 - made an contact us form with Email JS. another column implemented with `lottie-react` files.
+- Home page sections animaiton added by `framer-motion` package.
