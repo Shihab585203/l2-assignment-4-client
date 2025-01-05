@@ -42,13 +42,6 @@ export const baseApi = createApi({
       }),
       providesTags: ["Product"],
     }),
-    // getFeaturedProducts: builder.query({
-    //   query: () => ({
-    //     url: "/products",
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["Product"],
-    // }),
     //Fetch a Product By Id
     getProductById: builder.query({
       query: (id) => ({

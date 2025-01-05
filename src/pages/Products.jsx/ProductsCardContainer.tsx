@@ -26,7 +26,7 @@ const ProductsCardContainer = () => {
     sort: sortBy,
   };
 
-  const { data, isLoading } = useGetProductsQuery(queryParams);
+  const { data, isLoading } = useGetProductsQuery(queryParams, {pollingInterval: 30000});
 
   useEffect(() => {
     if (data?.data) {

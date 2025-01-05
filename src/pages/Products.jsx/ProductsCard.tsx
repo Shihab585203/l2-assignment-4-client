@@ -137,11 +137,14 @@ const ProductsCard = ({
             </button>
           </Link>
           <Link to={`/update-product/${_id}`}>
-          <button className="btn btn-primary  text-white">
-            <FaEdit />
-          </button>
+            <button className="btn btn-primary  text-white">
+              <FaEdit />
+            </button>
           </Link>
-          <button onClick={handleDeleteProduct} className="btn btn-primary text-white">
+          <button
+            onClick={handleDeleteProduct}
+            className="btn btn-primary text-white"
+          >
             <AiFillDelete />
           </button>
         </div>

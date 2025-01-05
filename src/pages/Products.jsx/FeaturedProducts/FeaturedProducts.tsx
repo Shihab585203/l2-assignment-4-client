@@ -4,7 +4,6 @@ import ProductsCard from "../ProductsCard";
 import { RootState } from "../../../redux/features/store";
 
 const FeaturedProducts = () => {
-
   const sortBy = useSelector((state: RootState) => state.sorting.sortBy);
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage
@@ -18,8 +17,8 @@ const FeaturedProducts = () => {
 
   const { data, isLoading } = useGetProductsQuery(queryParams);
 
-  if(isLoading){
-    <h2>Loading...</h2>
+  if (isLoading) {
+    <h2>Loading...</h2>;
   }
 
   console.log("featured products", data?.data?.result);
@@ -29,7 +28,9 @@ const FeaturedProducts = () => {
       {/* Products Grid */}
       <div className="grid grid-cols-3 gap-8 w-11/12 mx-auto mb-16">
         {data?.data?.result?.map((item: any) => (
-          <ProductsCard key={item._id} {...item} />
+          <div>
+            <ProductsCard key={item._id} {...item} />
+          </div>
         ))}
       </div>
     </div>
