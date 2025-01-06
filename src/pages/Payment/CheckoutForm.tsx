@@ -39,7 +39,9 @@ const CheckoutForm = () => {
     postCode: "",
   });
 
-  const cartItems = useSelector((state: { cart: {items : CartItem[]} }) => state.cart.items);
+  const cartItems = useSelector(
+    (state: { cart: { items: CartItem[] } }) => state.cart.items
+  );
   const { clientSecret } = useSelector((state: any) => state.payment);
   const [createPaymentData] = useCreatePaymentDataMutation();
   const dispatch = useDispatch();
@@ -67,12 +69,11 @@ const CheckoutForm = () => {
   };
 
   const handlePaymentMethodChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPaymentMethod(event.target.value as PaymentMethodType)
-  }
+    setPaymentMethod(event.target.value as PaymentMethodType);
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
 
     if (paymentMethod === "cash") {
       const cashOrderData = {
@@ -90,7 +91,7 @@ const CheckoutForm = () => {
       try {
         await createPaymentData(cashOrderData).unwrap();
         dispatch(clearCart());
-        navigate('/');
+        navigate("/");
         return;
       } catch (err) {
         setError("Failed to Place Order");
@@ -110,15 +111,17 @@ const CheckoutForm = () => {
       return;
     }
 
-    const { error: paymentMethodError, paymentMethod: stripePaymentMethod } =
-      await stripe.createPaymentMethod({
-        type: "card",
-        card,
-      });
+    const { error: paymentMethodError } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
 
     if (paymentMethodError) {
       console.log("Error: ", error);
-      setError(paymentMethodError?.message);
+      setError(
+        paymentMethodError?.message ||
+          "An error occured with this payment method"
+      );
       setProcessing(false);
       return;
     }
@@ -164,7 +167,7 @@ const CheckoutForm = () => {
         try {
           await createPaymentData(paymentUserData).unwrap();
           dispatch(clearCart());
-          navigate('/');
+          navigate("/");
         } catch (err) {
           setError(
             "Payment Successfull but Failed to Save Data. Please Contact Support."
